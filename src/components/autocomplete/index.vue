@@ -3,10 +3,13 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator';
+  import { Vue, Component, Prop } from 'vue-property-decorator';
 
   @Component
   class Autocomplete extends Vue {
+
+    @Prop({ default: [] })
+    public cities: Array<City>;
   }
 
   export default Autocomplete

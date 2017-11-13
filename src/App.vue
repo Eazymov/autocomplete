@@ -19,11 +19,12 @@
 
     public cities: Array<City> = [];
 
-    public created (): void {
-      API.getCities()
-        .then((cities: Array<City>) => {
-          this.cities = cities;
-        })
+    public async created (): Promise<void> {
+      try {
+        this.cities = await API.getCities()
+      } catch (err) {
+        console.error(err.message);
+      }
     }
   }
 
