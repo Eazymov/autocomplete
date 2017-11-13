@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.min.js",
   "scripts": {
-    "test": "test"
+    "dev": "webpack-dev-server --config config/dev.config.js",
+    "build": ""
   },
   "repository": {
     "type": "git",
@@ -17,18 +18,29 @@
   },
   "homepage": "https://github.com/Eazymov/temp#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.7",
     "node-sass": "^4.6.1",
+    "pug": "^2.0.0-rc.4",
+    "pug-html-loader": "^1.1.5",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "ts-loader": "^3.1.1",
     "typescript": "^2.6.1",
     "uglifyjs-webpack-plugin": "^1.0.1",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.3",
     "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4",
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "normalize.css": "^7.0.0",
     "vue": "^2.5.3",
-    "vue-class-component": "^6.1.0"
+    "vue-class-component": "^6.1.0",
+    "vue-property-decorator": "^6.0.0"
   }
 }

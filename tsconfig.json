@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -10,6 +11,10 @@
     "sourceMap": false,
     "allowJs": false,
     "strict": true,
+    "paths": {
+      "API": ["./src/api"],
+      "Components": ["./src/components"]
+    },
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
