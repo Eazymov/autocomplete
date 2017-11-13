@@ -1,32 +1,18 @@
 <template lang="pug">
   #root
-    .example
-      span.example__title Autocomplete
-      autocomplete(:cities="cities")
+    Example
 </template>
 
 <script lang="ts">
   import { Vue, Component } from 'vue-property-decorator';
-  import Autocomplete from 'Components/autocomplete';
-  import API from 'API';
+  import Example from 'Components/example';
 
   @Component({
     components: {
-      Autocomplete,
+      Example,
     },
   })
-  class App extends Vue {
-
-    public cities: Array<City> = [];
-
-    public async created (): Promise<void> {
-      try {
-        this.cities = await API.getCities()
-      } catch (err) {
-        console.error(err.message);
-      }
-    }
-  }
+  class App extends Vue { }
 
   export default App
 </script>
@@ -50,17 +36,9 @@
 
   #root
     justify-content: center
+    background-color: #eee
     align-items: center
     min-height: 100vh
     display: flex
     width: 100%
-
-  .example
-    box-shadow: 0 1px 2px rgba(#000, .5)
-    padding: 14px 16px
-    border-radius: 2px
-
-    &__title
-      font-weight: normal
-      font-size: 26px
 </style>
