@@ -2,25 +2,45 @@
   div(class='autocomplete')
 
     input(class='autocomplete__field'
+          :class=`{
+            'autocomplete__field--error': error,
+            'autocomplete__field--warning': shouldShowWarning
+          }`
           v-model="search"
           ref="searchField"
+          @blur="handleBlur"
+          @input="handleInput"
+          @keyup.enter="handleEnter"
           placeholder="Начните вводить код или название")
 
-    ul(class='dropdown' v-show="showDropdown")
+    ul(class='dropdown' v-show="shouldShowDropdown")
+      li(class='dropdown__item dropdown__item--disabled' v-show="!search")
+        span(class='dropdown__item__name')
+          | Популярные города
+
       li(class='dropdown__item'
-         v-for="(item, index) in filteredCities"
-         @click="setItem(index)"
-         :class="{ active: index === currentIndex }")
+        v-for="(item, index) in shortCityList"
+        @click="setItem(index)"
+        @mouseover="currentIndex = index"
+        :class="{ active: index === currentIndex }")
         span(class='dropdown__item__code'
-             v-show="compositeList"
-             v-if="highlight"
-             v-html="highlightMatches(item.Id, search)")
+            v-show="compositeList"
+            v-if="highlight"
+            v-html="highlightMatches(item.Id, search)")
         span(class='dropdown__item__code' v-show="compositeList" v-else) {{ item.Id }}
 
         span(class='dropdown__item__name'
-             v-if="highlight"
-             v-html="highlightMatches(item.City, search)")
+            v-if="highlight"
+            v-html="highlightMatches(item.City, search)")
         span(class='dropdown__item__name' v-else) {{ item.City }}
+
+      li(class='dropdown__item' v-show="shouldShowNotFound")
+        span(class='dropdown__item__name') Не найдено
+
+      li(class='dropdown__item dropdown__item--disabled'
+        v-show="search && shortCityList.length")
+        span(class='dropdown__item__name')
+          | Показано {{ shortCityList.length }} из {{ filteredCities.length }} найденных городов
 </template>
 
 <script lang="ts" src="./script"></script>
@@ -50,6 +70,16 @@
           transform: scale(1) translateY(0) rotateX(0)
           visibility: visible
           opacity: 1
+          
+      &--error
+        outline: 2px solid red
+        &:focus
+          outline: 2px solid #4d90f4
+
+      &--warning
+        outline: 2px solid goldenrod
+        &:focus
+          outline: 2px solid goldenrod
 
     .dropdown
       // transform: scale(.5) translateY(-30px) rotateX(90deg)
@@ -79,6 +109,12 @@
         &.active
           background-color: #4d90f4
           color: #fff
+
+        &--disabled
+          font-size: 13px
+          color: rgba(#000, .54)
+          
+        &--warning
           
         &__code
           display: inline-block

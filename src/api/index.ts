@@ -1,5 +1,5 @@
 // import instance from './instance';
-import cities from './kladr';
+import citiesJSON from './kladr.json';
 
 const API = {
   getCities (): Promise<Array<City>> {
@@ -13,7 +13,7 @@ const API = {
       })
     */
 
-    return Promise.resolve(cities);
+    return Promise.resolve(citiesJSON);
   }
 };
 

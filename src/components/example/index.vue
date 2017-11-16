@@ -12,10 +12,12 @@
                 hidden)
     Autocomplete(:cities="cities"
                  :highlight="options.highlight.value"
-                 :valueCreation="options.valueCreation.value"
-                 :cartCreation="options.cartCreation.value"
+                 :canCreateValue="options.canCreateValue.value"
+                 :canCreateCart="options.canCreateCart.value"
                  :compositeList="options.compositeList.value"
-                 :showFavs="options.showFavs.value")
+                 :canSetAnyValue="options.canSetAnyValue.value"
+                 :showFavs="options.showFavs.value"
+                 @create="addCity")
 </template>
 
 <script lang="ts">
@@ -43,17 +45,21 @@
         title: 'Выделять вхождения',
         value: true,
       },
-      valueCreation: {
+      canCreateValue: {
         title: 'Добавление своего значения (с помощью Enter)',
         value: false,
       },
-      cartCreation: {
+      canCreateCart: {
         title: 'Добавление карточки',
         value: false,
       },
       compositeList: {
         title: 'Составной список',
         value: false,
+      },
+      canSetAnyValue: {
+        title: 'Указание своего значения',
+        value: true,
       },
       showFavs: {
         title: 'Избранные варианты',
@@ -68,6 +74,16 @@
         console.error(err.message);
       }
     }
+    
+    public addCity (name: string): void {
+      const newCityId: number = this.cities.length;
+      const newCity: City = {
+        City: name,
+        Id: newCityId,
+      };
+
+      this.cities.push(newCity)
+    }
   }
 
   export default Example
@@ -77,21 +93,21 @@
   .example
     box-shadow: 0 1px 2px rgba(#000, .5)
     background-color: #fff
-    margin-bottom: 15vh
+    margin-bottom: 35vh
     padding: 14px 16px
     border-radius: 2px
     width: 292px
 
     &__title
       font-weight: normal
-      margin-bottom: 8px
-      font-size: 26px
+      margin-bottom: 6px
+      font-size: 22px
       display: block
 
     &__subtitle
       font-weight: normal
-      margin-bottom: 8px
-      font-size: 16px
+      margin-bottom: 6px
+      font-size: 14px
       display: block
 
     &__opts-list

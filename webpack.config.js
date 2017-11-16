@@ -1,13 +1,14 @@
+require('dotenv').config();
+
 const path = require('path');
-
 const resolve = (str) => {
-  return path.join(__dirname, '..', str);
+  return path.join(__dirname, str);
 }
-
-module.exports = {
+const config = {
+  entry: './src/main.ts',
   output: {
     filename: 'index.min.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: resolve('dist'),
   },
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
@@ -50,12 +51,26 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         exclude: /node_modules/,
-        options: {
-          loaders: {
-
-          },
-        },
       },
     ],
   },
 }
+
+switch (process.env.NODE_ENV) {
+
+  case 'development':
+    config.devServer = {
+      port: 8080,
+      contentBase: './',
+    };
+
+    break;
+
+  case 'production':
+    break;
+
+  default:
+    break;
+}
+
+module.exports = config

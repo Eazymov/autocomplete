@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/index.min.js",
   "scripts": {
-    "dev": "webpack-dev-server --config config/dev.config.js",
-    "build": ""
+    "dev": "cross-env NODE_ENV=development webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,9 @@
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
+    "dotenv": "^4.0.0",
     "node-sass": "^4.6.1",
     "pug": "^2.0.0-rc.4",
     "pug-html-loader": "^1.1.5",
@@ -42,5 +44,12 @@
     "vue": "^2.5.3",
     "vue-class-component": "^6.1.0",
     "vue-property-decorator": "^6.0.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env"
+      ]
+    ]
   }
 }

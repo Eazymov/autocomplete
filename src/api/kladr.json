@@ -1,4 +1,4 @@
-export default [
+[
   {
     "Id": 0,
     "City": "г. Белинский"
@@ -19921,7 +19921,8 @@ export default [
   },
   {
     "Id": 4980,
-    "City": "Екатеринбург"
+    "City": "Екатеринбург",
+    "favorite": true
   },
   {
     "Id": 4981,
@@ -19998,5 +19999,15 @@ export default [
   {
     "Id": 4999,
     "City": "Нижние Серги"
+  },
+  {
+    "Id": 5000,
+    "City": "Москва",
+    "favorite": true
+  },
+  {
+    "Id": 4999,
+    "City": "Санкт-Петербург",
+    "favorite": true
   }
 ]
