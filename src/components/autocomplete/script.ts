@@ -60,16 +60,21 @@ class Autocomplete extends Vue {
       ? this.filteredCities.slice(0, 5)
       : this.favorites;
   }
+  
+  public get cityNotFound (): boolean {
+    return this.shortCityList.length === 0;
+  }
+
+  public get shouldShowAskForAdd (): boolean {
+    return this.cityNotFound && this.canCreateCart;
+  }
 
   public get shouldShowNotFound (): boolean {
-    const cityNotFound: boolean = this.shortCityList.length === 0;
-    const canSetAnyValue: boolean = this.canSetAnyValue;
-
-    return cityNotFound && !canSetAnyValue;
+    return this.cityNotFound && !this.canSetAnyValue;
   }
   
   public get shouldShowWarning (): boolean {
-    return true;
+    return this.cityNotFound && this.canSetAnyValue;
   }
 
   public getCityByMatch (): City|undefined {
@@ -99,6 +104,10 @@ class Autocomplete extends Vue {
     this.search = selectedItem.City;
     this.searchField.blur();
   }
+  
+  public addItem (name: string): void {
+    this.$emit('create', name);
+  }
 
   public handleBlur (event: Event): void {
     event.preventDefault();
@@ -126,7 +135,7 @@ class Autocomplete extends Vue {
 
   public handleEnter (): void {
     if (this.canCreateValue) {
-      this.$emit('create', this.search);
+      this.addItem(this.search);
     }
 
     this.searchField.blur();
