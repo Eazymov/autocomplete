@@ -1,6 +1,6 @@
 .autocomplete
   position: relative
-  perspective: 500px
+  perspective: 750px
   height: 30px
   width: 100%
 
@@ -18,8 +18,8 @@
     &:focus
       outline: 2px solid #4d90f4
 
-      & + .dropdown
-        transform: scale(1) translateY(0) rotateX(0)
+      & ~ .dropdown
+        transform: scale(1) rotateX(0)
         visibility: visible
         opacity: 1
         
@@ -42,17 +42,17 @@
     margin-top: 5px
 
   .dropdown
-    // transform: scale(.5) translateY(-30px) rotateX(90deg)
+    transform: scale(.75) rotateX(90deg)
     box-shadow: 0 3px 15px rgba(#000, .5)
     transition: .2s ease-out
     background-color: #fff
-    // visibility: hidden
+    visibility: hidden
     position: absolute
     border-radius: 2px
     perspective: 300px
     overflow: hidden
     width: 100%
-    // opacity: 0
+    opacity: 0
     top: 34px
 
     &__item
@@ -74,10 +74,9 @@
         color: #fff
 
       &--disabled
-        font-size: 13px
         color: rgba(#000, .54)
-        
-      &--warning
+        pointer-events: none
+        font-size: 13px
         
       &__code
         display: inline-block

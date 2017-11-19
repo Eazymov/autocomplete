@@ -11,11 +11,12 @@ const config = {
     path: resolve('dist'),
   },
   resolve: {
-    extensions: ['.js', '.ts', '.vue'],
+    extensions: ['.ts', '.js', '.vue'],
     alias: {
       '@': resolve('src'),
       'API': resolve('src/api'),
       'Components': resolve('src/components'),
+      'TestHelpers': resolve('test/helpers'),
     },
   },
   module: {

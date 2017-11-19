@@ -11,6 +11,7 @@
           @blur="handleBlur"
           @input="handleInput"
           @keyup.enter="handleEnter"
+          @keydown="handleKeyDown"
           placeholder="Начните вводить код или название")
 
     div(class="autocomplete__warning" v-show="shouldShowWarning")
@@ -39,16 +40,18 @@
             v-html="highlightMatches(item.City, search)")
         span(class='dropdown__item__name' v-else) {{ item.City }}
 
-      li(class='dropdown__item active'
+      li(class='dropdown__item'
+         :class="{ active: currentIndex === shortCityList.length }"
          @click="addItem(search)"
-         v-show="shouldShowAskForAdd")
+         v-show="shouldShowAskForAdd"
+         @mouseover="currentIndex = shortCityList.length")
         span(class='dropdown__item__name') + Добавить «{{ search }}»
 
-      li(class='dropdown__item' v-show="shouldShowNotFound")
+      li(class='dropdown__item dropdown__item--disabled' v-show="shouldShowNotFound")
         span(class='dropdown__item__name') Не найдено
 
       li(class='dropdown__item dropdown__item--disabled'
-        v-show="search && shortCityList.length")
+         v-show="search && shortCityList.length")
         span(class='dropdown__item__name')
           | Показано {{ shortCityList.length }} из {{ filteredCities.length }} найденных городов
 </template>

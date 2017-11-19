@@ -66,7 +66,7 @@ class Autocomplete extends Vue {
   }
 
   public get shouldShowAskForAdd (): boolean {
-    return this.cityNotFound && this.canCreateCart;
+    return this.canCreateCart;
   }
 
   public get shouldShowNotFound (): boolean {
@@ -80,7 +80,7 @@ class Autocomplete extends Vue {
   public getCityByMatch (): City|undefined {
     const search: string = this.search.toLowerCase();
     
-    return this.shortCityList.find((item: City) => {
+    return this.filteredCities.find((item: City) => {
       const id: string = item.Id.toString().toLowerCase();
       const name: string = item.City.toLowerCase();
 
@@ -131,14 +131,51 @@ class Autocomplete extends Vue {
   public handleInput (): void {
     this.error = null;
     this.selectedItem = null;
+    this.currentIndex = -1;
   }
 
   public handleEnter (): void {
-    if (this.canCreateValue) {
+    const curIndex: number = this.currentIndex;
+    
+    if (curIndex === this.shortCityList.length) {
+      this.addItem(this.search);
+    } else if (curIndex > -1) {
+      this.setItem(curIndex);
+    } else if (this.canCreateValue) {
       this.addItem(this.search);
     }
 
     this.searchField.blur();
+  }
+
+  public handleKeyDown (event: KeyboardEvent): void {
+    switch (event.keyCode) {
+      case 38:
+        this.decreaseCurrentIndex();
+        break;
+
+      case 40:
+        this.increaseCurrentIndex();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  private decreaseCurrentIndex (): void {
+    const index: number = this.currentIndex;
+    const minIndex: number = 0;
+
+    this.currentIndex -= index > minIndex ? 1 : 0;
+  }
+
+  private increaseCurrentIndex (): void {
+    const index: number = this.currentIndex;
+    let maxIndex: number = this.shortCityList.length - 1;
+    if (this.canCreateCart) maxIndex += 1;
+
+    this.currentIndex += index < maxIndex ? 1 : 0;
   }
 }
 

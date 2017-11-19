@@ -1,5 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator';
-import Autocomplete from 'Components/autocomplete';
+import Autocomplete from 'Components/Autocomplete';
 import API from 'API';
 
 type Options = {
